@@ -19,6 +19,13 @@ public:
 
 	virtual void BeginPlay() override;
 
+	virtual void Tick(float DeltaSeconds) override;
+
 	ATank* getControlledTank() const;
+
+private:
+
+	// Aim barrel through player tank crosshair
+	void AimTowardsCrosshair();
 
 };
