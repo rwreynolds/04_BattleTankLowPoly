@@ -17,8 +17,8 @@ class BATTLETANKLOWPOLY_API ATankPlayerController : public APlayerController
 	
 public:
 
+	virtual void BeginPlay() override;
+
 	ATank* getControlledTank() const;
 
-	
-	
 };
