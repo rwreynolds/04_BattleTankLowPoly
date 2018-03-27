@@ -22,12 +22,18 @@ public:
 
 	virtual void Tick(float DeltaSeconds) override;
 
-	ATank* getControlledTank() const;
-
 private:
+
+	ATank* getControlledTank() const;
 
 	// Aim barrel through player tank crosshair
 	void AimTowardsCrosshair();
 
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
+
+	UPROPERTY(EditAnywhere)
+	float CrossHairXLocation = 0.5;
+
+	UPROPERTY(EditAnywhere)
+	float CrossHairYLocation = 0.33333;
 };

@@ -35,10 +35,10 @@ void ATankPlayerController::AimTowardsCrosshair()
 	if (!getControlledTank()) { return; }
 
 	FVector OutHitLocation; // { 0.0, 0.0, 0.0 }; // Output parameter
-	UE_LOG(LogTemp, Warning, TEXT("HitLocation In: %s"), *(OutHitLocation.ToString()));
+	//UE_LOG(LogTemp, Warning, TEXT("HitLocation In: %s"), *(OutHitLocation.ToString()));
 	
 	if (GetSightRayHitLocation(OutHitLocation)) {
-		UE_LOG(LogTemp, Warning, TEXT("HitLocation Out: %s"), *(OutHitLocation.ToString()));	
+		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *(OutHitLocation.ToString()));	
 		//TODO Tell controlled tank to aim at this point
 	}
 
@@ -49,11 +49,17 @@ void ATankPlayerController::AimTowardsCrosshair()
 bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
 {
 	OutHitLocation = (GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
-	
-	return true;
 
-	// Ray-cast through the crosshair 
+	// Find the crosshair position
+	int32 ViewpoerSizeX, ViewpoertSizeY;
+	GetViewportSize(ViewpoerSizeX, ViewpoertSizeY);
+	auto ScreenLocation = FVector2D(ViewpoerSizeX * CrossHairXLocation, ViewpoertSizeY * CrossHairYLocation);
+	//UE_LOG(LogTemp, Warning, TEXT("Sight hit location: %s"), *(ScreenLocation.ToString()));
+	// "de=project" the screen position of the crosshair to a world position
+	// Line-trace along that look direction, and see what we hit (up to some max range).
 	// if ray-cast hits landscape 
+
 		// store location in OutHitLocation and return true
+	return true;
 }
 
