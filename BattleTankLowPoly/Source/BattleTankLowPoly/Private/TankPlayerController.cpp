@@ -50,16 +50,31 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 {
 	OutHitLocation = (GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation());
 
-	// Find the crosshair position
+	// Find the crosshair position in pixel coordinates
 	int32 ViewpoerSizeX, ViewpoertSizeY;
 	GetViewportSize(ViewpoerSizeX, ViewpoertSizeY);
 	auto ScreenLocation = FVector2D(ViewpoerSizeX * CrossHairXLocation, ViewpoertSizeY * CrossHairYLocation);
-	//UE_LOG(LogTemp, Warning, TEXT("Sight hit location: %s"), *(ScreenLocation.ToString()));
+	
 	// "de=project" the screen position of the crosshair to a world position
+	FVector LookDirection;
+	if (GetLookDirection(ScreenLocation, LookDirection)) {
+		UE_LOG(LogTemp, Warning, TEXT("Sight look direction: %s"), *(LookDirection.ToString()));
+	}
+
 	// Line-trace along that look direction, and see what we hit (up to some max range).
 	// if ray-cast hits landscape 
-
 		// store location in OutHitLocation and return true
+
 	return true;
+}
+
+bool ATankPlayerController::GetLookDirection(FVector2D const ScreenLocation, FVector& LookDirection) const
+{
+	FVector CameraWorldLocation;
+	return DeprojectScreenPositionToWorld(
+		ScreenLocation.X, 
+		ScreenLocation.Y, 
+		CameraWorldLocation, 
+		LookDirection);
 }
 
