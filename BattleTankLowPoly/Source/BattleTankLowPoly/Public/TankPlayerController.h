@@ -6,6 +6,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
+#include "DrawDebugHelpers.h"
+#include "Camera/PlayerCameraManager.h"
 #include "TankPlayerController.generated.h"
 
 /**
@@ -30,7 +32,10 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CrossHairYLocation = 0.33333;
 
-	ATank* getControlledTank() const;
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 1000000.0f;
+
+	ATank* GetControlledTank() const;
 
 	// Aim barrel through player tank crosshair
 	void AimTowardsCrosshair();
@@ -38,4 +43,6 @@ private:
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
+
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const;
 };
