@@ -46,13 +46,23 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float Launchspeed)
 		0.0f,
 		ESuggestProjVelocityTraceOption::DoNotTrace, //TraceFullPath causes weirdness,
 		FCollisionResponseParams::DefaultResponseParam,
-		TArray<AActor*>()/*,
-		true*/
+		TArray<AActor*>(),
+		true
 	);
 	if(bHaveAimSolution) {
 
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();		
 		MoveBarrelTowards(AimDirection);
+
+		auto DeltaTime = GetWorld()->GetTimeSeconds();
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("Tank %s Aim direction is %s @ %f seconds"), *TankName, *(AimDirection.ToString()), DeltaTime);
+		//UE_LOG(LogTemp, Warning, TEXT("Tank %s move barrel to: %s"), *TankName, *(AimDirection.ToString()));
+	} else {
+		auto DeltaTime = GetWorld()->GetTimeSeconds();
+		auto TankName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Warning, TEXT("Tank %s solution not found @ %f seconds"), *TankName, DeltaTime);
+		//UE_LOG(LogTemp, Warning, TEXT("Tank %s move barrel to: %s"), *TankName, *(AimDirection.ToString()));
 	}
 	
 	return;
@@ -67,10 +77,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRoatator;
 
-	//Barrel->
-
-	auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("Tank %s Delta Rotation: %s"), *TankName, *(DeltaRotator.ToString()));
-	//UE_LOG(LogTemp, Warning, TEXT("Tank %s move barrel to: %s"), *TankName, *(AimDirection.ToString()));
+	Barrel->Elevate(5);
 }
 
