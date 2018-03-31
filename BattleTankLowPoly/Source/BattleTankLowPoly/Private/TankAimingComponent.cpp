@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
+#include "TankBarrel.h"
 
 
 // Sets default values for this component's properties
@@ -14,12 +15,12 @@ UTankAimingComponent::UTankAimingComponent()
 }
 
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet) {
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	Barrel = BarrelToSet;
 }
 
 
-void UTankAimingComponent::SetTurretReference(UStaticMeshComponent* TurretToSet)
+void UTankAimingComponent::SetTurretReference(UTankBarrel* TurretToSet)
 {
 	Turret = TurretToSet;
 }
@@ -60,18 +61,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float Launchspeed)
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	
-	
-	
-
 	// Workout difference between current barrel rotation, elevation, and aim direction elevation
 	//auto CurrentBarrelRoatation1 = Barrel->GetForwardVector().Rotation();
 	auto BarrelRoatator = Barrel->GetComponentRotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRoatator;
 
-	// Move the barrel the required amount this frame
-	// Given a max elevation speed, given frame rate
-
+	//Barrel->
 
 	auto TankName = GetOwner()->GetName();
 	UE_LOG(LogTemp, Warning, TEXT("Tank %s Delta Rotation: %s"), *TankName, *(DeltaRotator.ToString()));
