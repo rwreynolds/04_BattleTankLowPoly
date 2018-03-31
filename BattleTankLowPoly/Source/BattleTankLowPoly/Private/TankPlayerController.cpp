@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#include "Engine/World.h"
+#include "Tank.h"
 
 void ATankPlayerController::BeginPlay() {
 
@@ -49,7 +51,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	// Find the crosshair position in pixel coordinates
 	int32 ViewpoerSizeX, ViewpoertSizeY;
 	GetViewportSize(ViewpoerSizeX, ViewpoertSizeY);
-	auto ScreenLocation = FVector2D(ViewpoerSizeX * CrossHairXLocation, ViewpoertSizeY * CrossHairYLocation);
+	auto ScreenLocation = FVector2D(ViewpoerSizeX * CrossHairXLocation, ViewpoertSizeY* CrossHairYLocation);
 	
 	// "de=project" the screen position of the crosshair to a world position
 	FVector LookDirection;

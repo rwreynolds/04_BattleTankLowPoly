@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankAimingComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
 
 
@@ -44,10 +45,10 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float Launchspeed)
 		false,
 		0.0f,
 		0.0f,
-		ESuggestProjVelocityTraceOption::DoNotTrace, //TraceFullPath causes weirdness,
+		ESuggestProjVelocityTraceOption::DoNotTrace, //TraceFullPath causes weirdness, parm must be present to fix UE bug
 		FCollisionResponseParams::DefaultResponseParam,
-		TArray<AActor*>(),
-		true
+		TArray<AActor*>()/*,
+		true*/
 	);
 	if(bHaveAimSolution) {
 
