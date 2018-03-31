@@ -13,8 +13,8 @@ void ATankPlayerController::BeginPlay() {
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("PlayerController BeginPlay: ControlledTank: %s"), *(PossesedTank->GetName()));
 	}
-
 }
+
 
 void ATankPlayerController::Tick(float DeltaSeconds)
 {
@@ -23,11 +23,13 @@ void ATankPlayerController::Tick(float DeltaSeconds)
 
 }
 
+
 ATank* ATankPlayerController::GetControlledTank() const {
 
 	return(Cast<ATank>(GetPawn()));
 	
 }
+
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
@@ -39,6 +41,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	}
 	return;
 }
+
 
 // Get world location of line trace through crosshair, returns true if hits the landscape
 bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
@@ -61,6 +64,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	return false;
 }
 
+
 bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const
 {
 	FHitResult HitResult;
@@ -74,16 +78,13 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 			ECollisionChannel::ECC_Visibility,
 			QueryCollisionParams)
 		) {
-				//if (HitResult.bBlockingHit) {
-				UE_LOG(LogTemp, Warning, TEXT("Blocking Hit!"));
 				OutHitLocation = HitResult.Location;
-				DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Green, false, 0.25, 0, 1);
 				return true;
-				//}
 		  }
 	OutHitLocation = FVector(0);
 	return false;
 }
+
 
 bool ATankPlayerController::GetLookDirection(FVector2D const ScreenLocation, FVector& LookDirection) const
 {
