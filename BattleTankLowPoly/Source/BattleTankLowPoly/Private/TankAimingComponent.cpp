@@ -2,7 +2,9 @@
 
 #include "TankAimingComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 
 
 // Sets default values for this component's properties
@@ -18,12 +20,14 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	Barrel = BarrelToSet;
+	return;
 }
 
 
-void UTankAimingComponent::SetTurretReference(UTankBarrel* TurretToSet)
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
 {
 	Turret = TurretToSet;
+	return;
 }
 
 
@@ -47,37 +51,39 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float Launchspeed)
 		0.0f,
 		ESuggestProjVelocityTraceOption::DoNotTrace, //TraceFullPath causes weirdness, parm must be present to fix UE bug
 		FCollisionResponseParams::DefaultResponseParam,
-		TArray<AActor*>()/*,
-		true*/
+		TArray<AActor*>(),
+		true
 	);
 	if(bHaveAimSolution) {
 
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();		
 		MoveBarrelTowards(AimDirection);
 
-		auto DeltaTime = GetWorld()->GetTimeSeconds();
+		/*auto DeltaTime = GetWorld()->GetTimeSeconds();
 		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("Tank %s Aim direction is %s @ %f seconds"), *TankName, *(AimDirection.ToString()), DeltaTime);
-		//UE_LOG(LogTemp, Warning, TEXT("Tank %s move barrel to: %s"), *TankName, *(AimDirection.ToString()));
+		UE_LOG(LogTemp, Warning, TEXT("Tank %s Aim direction is %s @ %f seconds"), *TankName, *(AimDirection.ToString()), DeltaTime);*/
 	} else {
-		auto DeltaTime = GetWorld()->GetTimeSeconds();
+		/*auto DeltaTime = GetWorld()->GetTimeSeconds();
 		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("Tank %s solution not found @ %f seconds"), *TankName, DeltaTime);
-		//UE_LOG(LogTemp, Warning, TEXT("Tank %s move barrel to: %s"), *TankName, *(AimDirection.ToString()));
+		UE_LOG(LogTemp, Warning, TEXT("Tank %s solution not found @ %f seconds"), *TankName, DeltaTime);*/
 	}
 	
 	return;
 }
 
+
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	
 	// Workout difference between current barrel rotation, elevation, and aim direction elevation
-	//auto CurrentBarrelRoatation1 = Barrel->GetForwardVector().Rotation();
 	auto BarrelRoatator = Barrel->GetComponentRotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRoatator;
 
-	Barrel->Elevate(5);
+	Barrel->Elevate(DeltaRotator.Pitch);
+	Turret->Rotate(DeltaRotator.Yaw);
+
+	return;
 }
+
 
