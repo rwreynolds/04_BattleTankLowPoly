@@ -12,7 +12,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -51,8 +51,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float Launchspeed)
 		0.0f,
 		ESuggestProjVelocityTraceOption::DoNotTrace, //TraceFullPath causes weirdness, parm must be present to fix UE bug
 		FCollisionResponseParams::DefaultResponseParam,
-		TArray<AActor*>(),
-		true
+		TArray<AActor*>()/*,
+		true*/
 	);
 	if(bHaveAimSolution) {
 
@@ -62,10 +62,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float Launchspeed)
 		/*auto DeltaTime = GetWorld()->GetTimeSeconds();
 		auto TankName = GetOwner()->GetName();
 		UE_LOG(LogTemp, Warning, TEXT("Tank %s Aim direction is %s @ %f seconds"), *TankName, *(AimDirection.ToString()), DeltaTime);*/
-	} else {
-		/*auto DeltaTime = GetWorld()->GetTimeSeconds();
-		auto TankName = GetOwner()->GetName();
-		UE_LOG(LogTemp, Warning, TEXT("Tank %s solution not found @ %f seconds"), *TankName, DeltaTime);*/
 	}
 	
 	return;

@@ -2,6 +2,7 @@
 
 #include "Tank.h"
 #include "TankAimingComponent.h"
+#include "Engine/World.h"
 
 // Sets default values
 ATank::ATank()
@@ -34,6 +35,15 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ATank::AimAt(FVector HitLocation)
 {
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
+	
+	return;
+}
+
+void ATank::Fire()
+{
+	
+	auto DeltaTime = GetWorld()->GetTimeSeconds();
+	UE_LOG(LogTemp, Warning, TEXT("Tank fired! @ %f"), DeltaTime);
 	
 	return;
 }
