@@ -2,6 +2,8 @@
 
 #include "Tank.h"
 #include "TankAimingComponent.h"
+#include "Projectile.h"
+#include "TankBarrel.h"
 #include "Engine/World.h"
 
 // Sets default values
@@ -32,6 +34,21 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
+{
+	TankAimingComponent->SetBarrelReference(BarrelToSet);
+	Barrel = BarrelToSet;
+
+	return;
+}
+
+
+void ATank::SetTurretReference(UTankTurret* TurretToSet)
+{
+	TankAimingComponent->SetTurretReference(TurretToSet);
+}
+
+
 void ATank::AimAt(FVector HitLocation)
 {
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
@@ -41,23 +58,18 @@ void ATank::AimAt(FVector HitLocation)
 
 void ATank::Fire()
 {
-	
+	if (!Barrel) { return; }
+
 	auto DeltaTime = GetWorld()->GetTimeSeconds();
 	UE_LOG(LogTemp, Warning, TEXT("Tank fired! @ %f"), DeltaTime);
+
+	// Spawn projectile at socket location
+	GetWorld()->SpawnActor<AProjectile>(
+		ProjectileBlueprint, 
+		Barrel->GetSocketLocation(FName("Projectile")),
+		Barrel->GetSocketRotation(FName("Projectile"))
+	);
 	
 	return;
-}
-
-
-void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
-{
-	TankAimingComponent->SetBarrelReference(BarrelToSet);
-
-	return;
-}
-
-void ATank::SetTurretReference(UTankTurret* TurretToSet)
-{
-	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 
