@@ -24,6 +24,11 @@ private:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere)
+	float ReloadTimeInSeconds = 3;
+
+	double ReadyToFire = 0;
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
