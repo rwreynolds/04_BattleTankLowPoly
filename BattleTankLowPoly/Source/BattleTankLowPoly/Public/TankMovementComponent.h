@@ -18,11 +18,14 @@ class BATTLETANKLOWPOLY_API UTankMovementComponent : public UNavMovementComponen
 
 public:
 
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void Initialize(UTankTrack* LefTrackToSet, UTankTrack* RightTrackToSet);
+
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void IntendMoveForward(float Throw);
 
-	UFUNCTION(BlueprintCallable, Category = Input)
-	void Initialize(UTankTrack* LefTrackToSet, UTankTrack* RightTrackToSet);
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void IntendTurnRight(float Throw);
 	
 private:
 	UTankTrack* LeftTrack = nullptr;
