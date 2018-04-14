@@ -5,9 +5,6 @@
 
 void UTankTrack::SetThrottle(float Throttle) {
 
-	auto Name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("%s Tank track throttle: %f"), *Name, Throttle);
-
 	//TODO Clamp throttle values
 	//TODO Workout throttling for arrow keys
 
