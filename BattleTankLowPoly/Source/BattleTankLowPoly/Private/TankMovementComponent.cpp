@@ -38,6 +38,11 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 {
 	// No need to call Super because of complete replacement of method
 
-	auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("Tank %s direct movement requst: %s"), *TankName, *(MoveVelocity.ToString()));
+	auto TankForwardDirection = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
+	auto ForwardThrow = FVector::DotProduct(TankForwardDirection, AIForwardIntention);
+	IntendMoveForward(ForwardThrow);
+
+	/*auto TankName = GetOwner()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("Tank %s dmove direction: %s"), *TankName, *(AIForwardIntention.ToString()));*/
 }
