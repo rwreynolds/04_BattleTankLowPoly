@@ -25,4 +25,7 @@ private:
 	ATank * GetControlledTank() const;
 
 	ATank * GetPlayerTank() const;
+
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	float AcepptanceRadius = 3000.0f; // Limits AI distance from player. Assuming cm.
 };

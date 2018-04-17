@@ -18,6 +18,9 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 	// TODO Fix doubled speed due to dual control use. 
+
+	/*const FVector MoveVelocity;
+	RequestDirectMove(MoveVelocity, false);*/
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -26,4 +29,15 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 	// TODO Fix doubled speed due to dual control use. 
+
+	/*const FVector MoveVelocity;
+	RequestDirectMove(MoveVelocity, false);*/
+}
+
+void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
+{
+	// No need to call Super because of complete replacement of method
+
+	auto TankName = GetOwner()->GetName();
+	UE_LOG(LogTemp, Warning, TEXT("Tank %s direct movement requst: %s"), *TankName, *(MoveVelocity.ToString()));
 }
