@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Disrupting Inc 2018
 
 #include "TankMovementComponent.h"
 #include "TankTrack.h"
@@ -17,10 +17,8 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	if (!LeftTrack || !RightTrack) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
-	// TODO Fix doubled speed due to dual control use. 
 
-	/*const FVector MoveVelocity;
-	RequestDirectMove(MoveVelocity, false);*/
+	return;
 }
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
@@ -28,10 +26,8 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 	if (!LeftTrack || !RightTrack) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
-	// TODO Fix doubled speed due to dual control use. 
 
-	/*const FVector MoveVelocity;
-	RequestDirectMove(MoveVelocity, false);*/
+	return;
 }
 
 void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, bool bForceMaxSpeed)
@@ -48,5 +44,5 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	IntendTurnRight(RightThrow);
 
 	/*auto TankName = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("Tank %s dmove direction: %s"), *TankName, *(AIForwardIntention.ToString()));*/
+	UE_LOG(LogTemp, Warning, TEXT("Right: %f, Forward: %f"), RightThrow, ForwardThrow);*/
 }
