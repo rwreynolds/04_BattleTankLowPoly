@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Disrupting Inc 2018
 
 #pragma once
 
@@ -22,11 +22,8 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 	// Local barrel ref for spawning projectiles
-	UTankBarrel* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr; //TODO Remove
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
@@ -39,22 +36,15 @@ private:
 
 	double ReadyToFire = 0;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 protected:
+
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
 	UTankMovementComponent* TankMovementComponent = nullptr;
 
 public:
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
-
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable)

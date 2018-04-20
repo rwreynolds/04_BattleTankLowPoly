@@ -1,9 +1,19 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Disrupting Inc 2018
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "TankAimingComponent.generated.h"
+
+// Enum for aiming state
+UENUM()
+enum class EFiringState : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
 
 // Forward declaration
 class UTankBarrel; 
@@ -16,20 +26,20 @@ class BATTLETANKLOWPOLY_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
-	UTankAimingComponent();
-
-
-public:	
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	void SetTurretReference(UTankTurret* TurretToSet);
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
-private:
-	UTankBarrel* Barrel = nullptr;
+protected:
+	UPROPERTY(BluePrintReadOnly, Category = State)
+	EFiringState FiringState = EFiringState::Aiming;
 
+private:
+	// Sets default values for this component's properties
+	UTankAimingComponent();
+
+	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
