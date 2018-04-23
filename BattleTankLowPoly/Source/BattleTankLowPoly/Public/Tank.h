@@ -22,6 +22,8 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
+	virtual void BeginPlay() override;
+
 	// Local barrel ref for spawning projectiles
 	UTankBarrel* Barrel = nullptr; //TODO Remove
 
@@ -32,7 +34,7 @@ private:
 	float LaunchSpeed = 4000.0f;
 
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float ReloadTimeInSeconds = 3;
+	float ReloadTimeInSeconds = 3.0f;
 
 	double ReadyToFire = 0;
 
