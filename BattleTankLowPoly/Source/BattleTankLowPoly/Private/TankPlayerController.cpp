@@ -10,13 +10,9 @@ void ATankPlayerController::BeginPlay() {
 	Super::BeginPlay();
 	
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-	if (AimingComponent) {
+	if(ensure(AimingComponent)) {
 		AimingComponentFound(AimingComponent);
 	}
-	else {
-		UE_LOG(LogTemp, Warning, TEXT("PlayerController AimingComponent not found."));
-	}
-	
 }
 
 
@@ -24,23 +20,21 @@ void ATankPlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick( DeltaSeconds );
 	AimTowardsCrosshair();
-
 }
 
 
 ATank* ATankPlayerController::GetControlledTank() const {
 
 	return(Cast<ATank>(GetPawn()));
-	
 }
 
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!GetControlledTank()) { return; }
+	if(!ensure(GetControlledTank())) { return; }
 
 	FVector HitLocation; 	
-	if (GetSightRayHitLocation(HitLocation)) {
+	if(GetSightRayHitLocation(HitLocation)) {
 		GetControlledTank()->AimAt(HitLocation);
 	}
 	return;
@@ -57,11 +51,11 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	
 	// "de=project" the screen position of the crosshair to a world position
 	FVector LookDirection;
-	if (GetLookDirection(ScreenLocation, LookDirection)) {
+	if(GetLookDirection(ScreenLocation, LookDirection)) {
 		// Line-trace along that look direction, and see what we hit (up to some max range).
 		// if ray-cast hits landscape 
 			// store location in OutHitLocation and return true
-		if (GetLookVectorHitLocation(LookDirection, OutHitLocation)) {
+		if(GetLookVectorHitLocation(LookDirection, OutHitLocation)) {
 			return true;
 		}
 	}
@@ -75,7 +69,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = (StartLocation + (LookDirection * LineTraceRange));
 	FCollisionQueryParams QueryCollisionParams;
-	if (GetWorld()->LineTraceSingleByChannel(
+	if(GetWorld()->LineTraceSingleByChannel(
 			HitResult,
 			StartLocation,
 			EndLocation,
