@@ -39,7 +39,6 @@ private:
 	double ReadyToFire = 0;
 
 protected:
-
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 

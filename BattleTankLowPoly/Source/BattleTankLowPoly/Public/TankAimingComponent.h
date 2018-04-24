@@ -26,7 +26,6 @@ class BATTLETANKLOWPOLY_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void Initialize(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
@@ -35,10 +34,9 @@ public:
 
 protected:
 	UPROPERTY(BluePrintReadOnly, Category = State)
-	EFiringState FiringState = EFiringState::Aiming;
+	EFiringState FiringState = EFiringState::Reloading;
 
-private:
-	
+private:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
@@ -46,5 +44,4 @@ private:
 	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
-
 };

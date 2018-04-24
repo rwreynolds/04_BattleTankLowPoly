@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Disrupting Inc 2018
 
 #pragma once
 
@@ -7,8 +7,10 @@
 
 
 class ATank;
+class UTankAimingComponent;
+
 /**
- * 
+ * Assists player in aiming
  */
 UCLASS()
 class BATTLETANKLOWPOLY_API ATankPlayerController : public APlayerController
@@ -16,7 +18,6 @@ class BATTLETANKLOWPOLY_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 public:
-
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaSeconds) override;
@@ -25,8 +26,10 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	ATank* GetControlledTank() const;
 
-private:
+	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
+	void AimingComponentFound(UTankAimingComponent* AimCompRef);
 
+private:
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5;
 
