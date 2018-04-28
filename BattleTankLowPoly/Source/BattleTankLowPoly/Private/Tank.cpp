@@ -4,7 +4,6 @@
 #include "Engine/World.h"
 #include "math.h"
 #include "TankAimingComponent.h"
-#include "TankMovementComponent.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
 
@@ -14,16 +13,16 @@ ATank::ATank()
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	auto name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("[%s] 57d629b7-code: Tank Constructor"), *name);
+	/*auto name = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("[%s] 57d629b7-code: Tank Constructor"), *name);*/
 }
 
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("[%s] 57d629b7-code: Begin Play"), *name);
+	/*auto name = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("[%s] 57d629b7-code: Begin Play"), *name);*/
 }
 
 void ATank::AimAt(FVector HitLocation)
