@@ -23,12 +23,11 @@ private:
 
 	virtual void BeginPlay() override;
 
-	// Local barrel ref for spawning projectiles
-	UTankBarrel* Barrel = nullptr; //TODO Remove
-
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
+
+	// TODO remove. moving to AimingComponenet
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float LaunchSpeed = 4000.0f;
 
@@ -40,6 +39,9 @@ private:
 protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	// Local barrel ref for spawning projectiles
+	UTankBarrel* Barrel = nullptr; //TODO Remove
 
 public:
 	void AimAt(FVector HitLocation);
