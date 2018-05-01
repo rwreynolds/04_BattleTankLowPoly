@@ -7,6 +7,8 @@
 #include "TankAIController.generated.h"
 
 
+class UTankAimingComponent;
+
 class ATank;
 /**
  * 
@@ -28,4 +30,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float AcepptanceRadius = 3000.0f; // Limits AI distance from player. Assuming cm.
+
+protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = Setup)
+	void AimingComponentFound(UTankAimingComponent* AimCompRef);
 };

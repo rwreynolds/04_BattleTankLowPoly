@@ -37,9 +37,6 @@ private:
 	double ReadyToFire = 0;
 
 protected:
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
-
 	// Local barrel ref for spawning projectiles
 	UTankBarrel* Barrel = nullptr; //TODO Remove
 

@@ -3,7 +3,6 @@
 #include "Tank.h"
 #include "Engine/World.h"
 #include "math.h"
-#include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
 
@@ -21,22 +20,11 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 	//Barrel = FindComponentByClass<UTankBarrel>();
 	/*auto name = GetName();
 	UE_LOG(LogTemp, Warning, TEXT("[%s] 57d629b7-code: Begin Play"), *name);*/
 }
 
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
-	
-	//UE_LOG(LogTemp, Warning, TEXT("Delta time: %f"), DeltaTime);
-
-	return;
-}
 
 void ATank::Fire()
 {	
